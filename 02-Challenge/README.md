@@ -47,6 +47,7 @@ Choose an action: Select from options like viewing, adding, or updating departme
 Follow prompts: Input information as prompted to manage your employee database.
 
 ## Walkthrough Video
+https://youtu.be/ZpXu1Ux4o-0
 
 ### Database Schema
 The database schema consists of three main tables:
@@ -70,6 +71,7 @@ The database schema consists of three main tables:
 
 ### Repo Link
 ##### GitHub Repository
+https://github.com/PHTMGatt/10-Employee-Tracker
 
 ### Credits
 Built by PHTMGatt.
