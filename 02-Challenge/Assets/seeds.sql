@@ -20,3 +20,9 @@ VALUES ('John', 'Doe', 1, NULL),
        ('Michael', 'Brown', 4, 2),
        ('Sarah', 'Davis', 5, 2);
 
+INSERT INTO department (department_name)
+VALUES ('Finance'),
+       ('Marketing'),
+       ('Human Resources'),
+       ('IT'),
+       ('Sales');
