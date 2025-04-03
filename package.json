@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "asciiart-logo": "^0.2.7",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.6",
+    "pg": "^8.14.1"
+  }
+}
