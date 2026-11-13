@@ -33,7 +33,7 @@ Needs Node.js and PostgreSQL.
    psql -U postgres -d minions_db -f Assets/seeds.sql
    ```
 
-3. The connection settings (host, user, database, port and password) are written directly in `index.js`. Edit them to match your local PostgreSQL before starting.
+3. Copy `.env.example` to `.env` and fill in your local PostgreSQL settings: `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD` and `PGDATABASE` (use `minions_db` for the database). `.env` is git-ignored.
 
 4. Start the app:
 
@@ -59,4 +59,4 @@ The planning diagram is `Assets/100-sql-challenge-ERD.png`. Its table and column
 
 - Designing a small relational schema with foreign keys, cascading deletes and a self-referencing manager column.
 - Writing SQL joins for the reports, and using parameterised queries (`$1`, `$2`) for every insert, update and delete.
-- Building an interactive CLI with async/await and Inquirer. Known rough edge: the connection details should move to environment variables rather than living in `index.js`.
+- Building an interactive CLI with async/await and Inquirer. Database credentials come from environment variables (loaded with dotenv), never from the code.
