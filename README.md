@@ -1,82 +1,62 @@
-# **Employee Tracker**
-#### 10-SQL
+# Employee Tracker
 
-## Description
-The **Employee Tracker** is a command-line application designed to manage a company's employee database efficiently. Built using **Node.js**, **Inquirer**, and **PostgreSQL**, this app allows users to view and manage departments, roles, and employees with ease. It is a **Content Management System (CMS)** that simplifies database interaction for non-developers.
+A command-line employee database manager: Node.js, Inquirer and PostgreSQL, for viewing and editing departments, roles and employees from a menu.
 
-### Motivation and Learning
-- **Motivation:** Create an intuitive tool for business owners to manage their workforce effectively.  
-- **Why:** Built to gain hands-on experience with databases, server-side JavaScript, and CLI applications.  
-- **Problem Solved:** Simplifies the management of employee information, making it easy to access and update.  
-- **What I Learned:** Strengthened skills in database management, SQL, asynchronous JavaScript, and using the `Inquirer` and `pg` packages.  
+Walkthrough video: https://youtu.be/ZpXu1Ux4o-0
 
----
+## What it does
 
-## Table of Contents
-- [Features](#features)  
-- [Installation](#installation)  
-- [Usage](#usage)  
-- [Database Schema](#database-schema)  
-- [API Reference](#api-reference)  
-- [Repo Link](#repo-link)  
-- [Credits](#credits)  
-- [License](#license)  
+- **View:** all departments, all roles (with department), all employees (with title, department, salary and manager), employees by manager, and employees by department.
+- **Add:** departments, roles and employees.
+- **Update:** an employee's role, or an employee's manager.
+- **Delete:** a department from the menu. The schema cascades, so its roles and their employees go with it.
+- **Output:** results print as tables in the terminal under an ASCII-art banner.
 
----
+## Tech stack
 
-## Features
-- View all departments, roles, and employees.  
-- Add new departments, roles, and employees.  
-- Update employee roles.  
-- Manage employees by department or manager (bonus).  
-- Delete departments, roles, and employees (bonus).  
-- View total salary budget by department (bonus).  
+Node.js, Inquirer 8, `pg` (PostgreSQL client), `console.table`, `asciiart-logo`. PostgreSQL for the data.
 
----
+## Run it
 
-## Installation
-To get a local copy up and running, follow these steps:
+Needs Node.js and PostgreSQL.
 
-1. **Clone the repo:**  
+1. Install dependencies:
+
    ```bash
-   git clone https://github.com/PHTMGatt/10-SQL-Employee-Tracker.git
+   npm install
+   ```
 
-## Usage
-Start the application: Run node index.js in the terminal.
-Choose an action: Select from options like viewing, adding, or updating departments, roles, and employees.
-Follow prompts: Input information as prompted to manage your employee database.
+2. Create the database and sample data with `psql` (the schema script creates `minions_db`):
 
-## Walkthrough Video
-https://youtu.be/ZpXu1Ux4o-0
+   ```bash
+   psql -U postgres -f Assets/schema.sql
+   psql -U postgres -d minions_db -f Assets/seeds.sql
+   ```
 
-### Database Schema
-The database schema consists of three main tables:
+3. The connection settings (host, user, database, port and password) are written directly in `index.js`. Edit them to match your local PostgreSQL before starting.
 
-#### 1. Department
-- id (Primary Key)
-- name (Unique, Not Null)
+4. Start the app:
 
-#### 2. Role
-- id (Primary Key)
-- title (Unique, Not Null)
-- salary (Not Null)
-- department_id (Foreign Key to Department)
+   ```bash
+   node index.js
+   ```
 
-#### 3. Employee
-- id (Primary Key)
-- first_name (Not Null)
-- last_name (Not Null)
-- role_id (Foreign Key to Role)
-- manager_id (Foreign Key to Employee, Nullable)
+There is no automated test suite.
 
-### Repo Link
-##### GitHub Repository
-https://github.com/PHTMGatt/10-Employee-Tracker
+## Database
 
-### Credits
-Built by PHTMGatt.
-Uses Inquirer for CLI interaction.
-Uses pg for database connectivity.
+Three tables, created by `Assets/schema.sql`:
 
-### License
-This project is licensed under the MIT License. See the LICENSE file for details.
+| Table | Columns |
+|---|---|
+| `department` | `id`, `department_name` |
+| `roles` | `id`, `title`, `salary`, `department_id` (references `department`) |
+| `employees` | `id`, `first_name`, `last_name`, `role_id` (references `roles`), `manager_id` (references `employees`) |
+
+The planning diagram is `Assets/100-sql-challenge-ERD.png`. Its table and column names differ slightly from the final schema.
+
+## What I learned / built
+
+- Designing a small relational schema with foreign keys, cascading deletes and a self-referencing manager column.
+- Writing SQL joins for the reports, and using parameterised queries (`$1`, `$2`) for every insert, update and delete.
+- Building an interactive CLI with async/await and Inquirer. Known rough edge: the connection details should move to environment variables rather than living in `index.js`.
