@@ -8,23 +8,20 @@
  *   - inquirer
  *   - pg
  *   - asciiart-logo
+ *   - dotenv
  *
  * To install dependencies:
- *   npm install inquirer pg asciiart-logo
+ *   npm install
  */
 
+require('dotenv').config();
 const inquirer = require('inquirer');
 const { Client } = require('pg');
 const logo = require('asciiart-logo');
 
-// Create a new PostgreSQL client. Update credentials as needed.
-const client = new Client({
-  host: 'localhost',
-  user: 'postgres',
-  database: 'minions_db',
-  password: 'Bvsg3244', // Replace with your actual password
-  port: 5432,
-});
+// Create a new PostgreSQL client. pg reads PGHOST, PGPORT, PGUSER,
+// PGPASSWORD and PGDATABASE from the environment (loaded from .env above).
+const client = new Client();
 
 // Connect to the PostgreSQL database.
 client.connect().catch((err) => {
