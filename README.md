@@ -4,6 +4,10 @@ A command-line employee database manager: Node.js, Inquirer and PostgreSQL, for 
 
 Walkthrough video: https://youtu.be/ZpXu1Ux4o-0
 
+## Status
+
+Coursework project. Checked 2026-11-26 on Windows with Node 26. `npm ci` succeeds. The menu was **not** exercised: no PostgreSQL on the test machine. No automated tests.
+
 ## What it does
 
 - **View:** all departments, all roles (with department), all employees (with title, department, salary and manager), employees by manager, and employees by department.
